@@ -1,0 +1,8 @@
+{
+	"name": "file-bot",
+	"version": "1.0.0",
+	"description": "File Manager Bot",
+	"main": "bot.js",
+	"author": "",
+	"dependencies": {}
+}
