@@ -4,5 +4,7 @@
 	"description": "File Manager Bot",
 	"main": "bot.js",
 	"author": "",
-	"dependencies": {}
-}    
+	"dependencies": {
+		"discord.js": "^11.4.2"
+	}
+}
