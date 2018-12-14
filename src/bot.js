@@ -8,31 +8,52 @@ const client = new Client();
 const path = '../files';
 var fs = require('fs');
 
+// Donwload Files Function
+let request = require('request');
+
+function download(url, filename){
+  request.get(url)
+    .on('error', console.error)
+    .pipe(fs.createWriteStream(path+'/'+filename));
+}
+
+// Environment Variables
+var i = false;
+var v = false;
+var n = 1;
+
 // Bot Ready
 client.on('ready', () => {
-  console.log('I am ready!');  
+  console.log('I am ready!');
 });
 
 // Main Core for the Application
 client.on('message', message => {
-  if (message.content === 'ping') {
-    message.channel.send('pong');
+  v = false;
+  
+  if (i === false){
+    message.channel.send('Hello, I am your File Bot! How can I help you?');
+    i = true;
+  }
+  
+  if (v === false){
+    message.attachments.forEach(function(attachment){
+      download(attachment.url, attachment.filename);
+      message.channel.send('Upload Successful!');
+    });
   }
 
-  if(message.content === 'nexo'){
-    const attachment = new Attachment('https://i.imgur.com/w3duR07.png');
-    message.channel.send(attachment);
-  }
-
-  if(message.content === 'download'){
+  if(message.content === 'download files'){
+    v = true;
     var files = fs.readdirSync(path);
 
+    message.channel.send(`${message.author}, here are your files available for download!`);
+    
     files.forEach(function (file){
       const attachment = new Attachment(path+'/'+file);
       message.channel.send(attachment);
     });
   }
-
 });
 
 // Bot Login using the Giving Token
