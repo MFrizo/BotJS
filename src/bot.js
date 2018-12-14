@@ -15,6 +15,7 @@ client.on('ready', () => {
 
 // Main Core for the Application
 client.on('message', message => {
+  //
   if (message.content === 'ping') {
     message.channel.send('pong');
   }
@@ -23,8 +24,10 @@ client.on('message', message => {
     const attachment = new Attachment('https://i.imgur.com/w3duR07.png');
     message.channel.send(attachment);
   }
+  //
 
-  if(message.content === 'download'){
+  if(message.content === 'download files'){
+    message.channel.send(`${message.author}, here are your files available for download!`);
     var files = fs.readdirSync(path);
 
     files.forEach(function (file){
