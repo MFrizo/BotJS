@@ -8,23 +8,19 @@ const client = new Client();
 const path = '../files';
 var fs = require('fs');
 
+var i = 0;
+
 // Bot Ready
 client.on('ready', () => {
-  console.log('I am ready!');  
+  console.log('I am ready!');
 });
 
 // Main Core for the Application
 client.on('message', message => {
-  //
-  if (message.content === 'ping') {
-    message.channel.send('pong');
-  }
-
-  if(message.content === 'nexo'){
-    const attachment = new Attachment('https://i.imgur.com/w3duR07.png');
-    message.channel.send(attachment);
-  }
-  //
+  if (i === 0){
+    message.channel.send('Hello, I am your File Bot! How can I help you?');
+    i++;
+  }  
 
   if(message.content === 'download files'){
     message.channel.send(`${message.author}, here are your files available for download!`);
@@ -35,7 +31,6 @@ client.on('message', message => {
       message.channel.send(attachment);
     });
   }
-
 });
 
 // Bot Login using the Giving Token
