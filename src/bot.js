@@ -1,29 +1,39 @@
-/**
- * A ping pong bot, whenever you send "ping", it replies "pong".
- */
-
 // Import the discord.js module
-const Discord = require('discord.js');
+const {Client, Attachment} = require('discord.js');
 
 // Create an instance of a Discord client
-const client = new Discord.Client();
+const client = new Client();
 
-/**
- * The ready event is vital, it means that only _after_ this will your bot start reacting to information
- * received from Discord
- */
+// File Stream Configuration
+const path = '../files';
+var fs = require('fs');
+
+// Bot Ready
 client.on('ready', () => {
-  console.log('I am ready!');
+  console.log('I am ready!');  
 });
 
-// Create an event listener for messages
+// Main Core for the Application
 client.on('message', message => {
-  // If the message is "ping"
   if (message.content === 'ping') {
-    // Send "pong" to the same channel
     message.channel.send('pong');
   }
+
+  if(message.content === 'nexo'){
+    const attachment = new Attachment('https://i.imgur.com/w3duR07.png');
+    message.channel.send(attachment);
+  }
+
+  if(message.content === 'download'){
+    var files = fs.readdirSync(path);
+
+    files.forEach(function (file){
+      const attachment = new Attachment(path+'/'+file);
+      message.channel.send(attachment);
+    });
+  }
+
 });
 
-// Log our bot in using the token from https://discordapp.com/developers/applications/me
+// Bot Login using the Giving Token
 client.login('NTIxOTM1NjY5ODc5MTExNjgw.DvKfcQ.JLXkxaasSQ_OcxGF8NVEToN4XIM');
